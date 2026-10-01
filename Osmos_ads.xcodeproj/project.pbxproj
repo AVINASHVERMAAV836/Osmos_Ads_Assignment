@@ -6,6 +6,10 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3B3CD6AB306E53D100366B9E /* osmos in Frameworks */ = {isa = PBXBuildFile; productRef = 3B3CD6AA306E53D100366B9E /* osmos */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		3B3CD662306E458600366B9E /* Osmos_ads.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Osmos_ads.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -35,6 +39,7 @@
 		3B3CD65F306E458600366B9E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				3B3CD6AB306E53D100366B9E /* osmos in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -73,6 +78,9 @@
 				3B3CD664306E458600366B9E /* Osmos_ads */,
 			);
 			name = Osmos_ads;
+			packageProductDependencies = (
+				3B3CD6AA306E53D100366B9E /* osmos */,
+			);
 			productName = Osmos_ads;
 			productReference = 3B3CD662306E458600366B9E /* Osmos_ads.app */;
 			productType = "com.apple.product-type.application";
@@ -101,6 +109,9 @@
 			);
 			mainGroup = 3B3CD659306E458600366B9E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				3B3CD6A9306E53D100366B9E /* XCRemoteSwiftPackageReference "osmos-ios-sdk-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3B3CD663306E458600366B9E /* Products */;
 			projectDirPath = "";
@@ -140,8 +151,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -171,8 +183,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -329,6 +342,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3B3CD6A9306E53D100366B9E /* XCRemoteSwiftPackageReference "osmos-ios-sdk-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onlinesales-ai/osmos-ios-sdk-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3B3CD6AA306E53D100366B9E /* osmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B3CD6A9306E53D100366B9E /* XCRemoteSwiftPackageReference "osmos-ios-sdk-spm" */;
+			productName = osmos;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3B3CD65A306E458600366B9E /* Project object */;
 	validationLevel = 1;

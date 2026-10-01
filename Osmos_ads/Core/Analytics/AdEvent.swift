@@ -14,6 +14,8 @@ nonisolated enum AdEvent: Sendable {
         case sdk = "SDK"
         /// Direct ping of the `*_tracking_url` from the response (fallback when the SDK is unavailable).
         case trackingURL = "tracking URL"
+        /// Direct call to the display ads endpoint (fallback when the SDK fetch hits a network error).
+        case directAPI = "direct API"
     }
 
     enum Level: Sendable {
@@ -27,7 +29,7 @@ nonisolated enum AdEvent: Sendable {
     case adRequested(adUnit: String)
     case duplicateRequestIgnored
     case adRetryScheduled(attempt: Int, maxAttempts: Int, delaySeconds: Double, reason: String)
-    case adLoaded(count: Int)
+    case adLoaded(count: Int, channel: Channel)
     case adFailed(reason: String)
     case adRendered(adId: String, position: Int)
     case adRenderFailed(adId: String, reason: String)
@@ -72,8 +74,8 @@ nonisolated enum AdEvent: Sendable {
             return "Request already in progress – duplicate ignored"
         case .adRetryScheduled(let attempt, let maxAttempts, let delay, let reason):
             return "Retry \(attempt)/\(maxAttempts) in \(String(format: "%.1f", delay))s (\(reason))"
-        case .adLoaded(let count):
-            return "Ad Loaded – \(count) creative(s)"
+        case .adLoaded(let count, let channel):
+            return "Ad Loaded – \(count) creative(s) via \(channel.rawValue)"
         case .adFailed(let reason):
             return "Ad Failed – \(reason)"
         case .adRendered(let adId, let position):

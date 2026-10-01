@@ -18,14 +18,19 @@ final class AdAnalytics {
     static let shared = AdAnalytics(sinks: [OSLogAnalyticsSink()])
 
     private var sinks: [AnalyticsSink]
+    /// Most recent events, replayed to sinks added later (e.g. SDK init logged before the UI exists).
+    private var recentEvents: [(event: AdEvent, date: Date)] = []
+    private let maxRecentEvents = 50
 
     init(sinks: [AnalyticsSink]) {
         self.sinks = sinks
     }
 
+    /// Adds a sink and replays recent events to it.
     func addSink(_ sink: AnalyticsSink) {
         guard !sinks.contains(where: { $0 === sink }) else { return }
         sinks.append(sink)
+        recentEvents.forEach { sink.record($0.event, at: $0.date) }
     }
 
     func removeSink(_ sink: AnalyticsSink) {
@@ -34,6 +39,10 @@ final class AdAnalytics {
 
     func track(_ event: AdEvent) {
         let now = Date()
+        recentEvents.append((event, now))
+        if recentEvents.count > maxRecentEvents {
+            recentEvents.removeFirst(recentEvents.count - maxRecentEvents)
+        }
         sinks.forEach { $0.record(event, at: now) }
     }
 }

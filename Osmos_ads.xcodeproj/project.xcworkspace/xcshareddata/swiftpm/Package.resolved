@@ -1,0 +1,24 @@
+{
+  "originHash" : "00bab9a756a1dd554433fc9711ce72b627aed641153215fcff6da9c59a73425b",
+  "pins" : [
+    {
+      "identity" : "osmos-ios-network-ad-core-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onlinesales-ai/osmos-ios-network-ad-core-spm",
+      "state" : {
+        "revision" : "c7b05d5b4ffe2b009e390c11044ee001c982b3ca",
+        "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "osmos-ios-sdk-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onlinesales-ai/osmos-ios-sdk-spm.git",
+      "state" : {
+        "revision" : "739c78c77c469ebd848b02f07962b06558572078",
+        "version" : "3.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}

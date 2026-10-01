@@ -15,7 +15,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <!-- Header: title, Load Ad button, status -->
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HSt-0a-001" userLabel="Header Stack">
                                 <rect key="frame" x="16" y="71" width="361" height="104"/>
                                 <subviews>
@@ -47,14 +46,13 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <!-- Scrollable feed; the stack view is the banner render area -->
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="Scr-0a-001" userLabel="Feed Scroll View">
                                 <rect key="frame" x="0.0" y="187" width="393" height="455"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="CSt-0a-001" userLabel="Ad Container Stack">
                                         <rect key="frame" x="16" y="8" width="361" height="120"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banner ads will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhL-0a-001" userLabel="Placeholder Label">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banner ads will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhL-0a-001" userLabel="Placeholder Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="120"/>
                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <constraints>
@@ -82,7 +80,6 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="CLG-0a-001"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="FLG-0a-001"/>
                             </scrollView>
-                            <!-- Event log -->
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgT-0a-001" userLabel="Event Log Title">
                                 <rect key="frame" x="16" y="650" width="361" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>

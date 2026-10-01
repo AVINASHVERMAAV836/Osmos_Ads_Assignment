@@ -23,7 +23,7 @@ final class AdRepository {
         adUnit: String = OsmosConfig.bannerAdUnit,
         count: Int = OsmosConfig.adsPerRequest,
         onRetry: (_ nextAttempt: Int, _ error: AdError, _ delaySeconds: Double) -> Void = { _, _, _ in }
-    ) async throws -> [BannerAd] {
+    ) async throws -> AdFetchResult {
         var attempt = 1
         while true {
             do {

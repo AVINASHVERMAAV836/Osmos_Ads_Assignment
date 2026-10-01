@@ -31,7 +31,7 @@ final class ViewController: UIViewController {
         self?.appendToEventLog(event, at: date)
     }
 
-    private var eventLogLines: [String] = []
+    private var eventLogLineCount = 0
     private static let maxEventLogLines = 200
     private static let contentCardsBetweenAds = 2
 
@@ -202,15 +202,29 @@ final class ViewController: UIViewController {
         case .warning: marker = "⚠️"
         case .error: marker = "❌"
         }
-        eventLogLines.append("\(Self.timeFormatter.string(from: date)) \(marker) \(event.message)")
-        if eventLogLines.count > Self.maxEventLogLines {
-            eventLogLines.removeFirst(eventLogLines.count - Self.maxEventLogLines)
-        }
-
         guard isViewLoaded else { return }
-        eventLogTextView.text = eventLogLines.joined(separator: "\n")
-        let end = NSRange(location: (eventLogTextView.text as NSString).length, length: 0)
-        eventLogTextView.scrollRangeToVisible(end)
+        let line = "\(Self.timeFormatter.string(from: date)) \(marker) \(event.message)"
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: eventLogTextView.font ?? UIFont.monospacedSystemFont(ofSize: 11, weight: .regular),
+            .foregroundColor: UIColor.label,
+        ]
+
+        // Append incrementally instead of resetting the whole text, so an impression logged
+        // mid-scroll doesn't trigger a full text re-layout (which caused visible hitches).
+        let storage = eventLogTextView.textStorage
+        storage.beginEditing()
+        storage.append(NSAttributedString(string: storage.length == 0 ? line : "\n" + line, attributes: attributes))
+        eventLogLineCount += 1
+        if eventLogLineCount > Self.maxEventLogLines {
+            let firstLineEnd = (storage.string as NSString).range(of: "\n")
+            if firstLineEnd.location != NSNotFound {
+                storage.deleteCharacters(in: NSRange(location: 0, length: firstLineEnd.location + 1))
+                eventLogLineCount -= 1
+            }
+        }
+        storage.endEditing()
+
+        eventLogTextView.scrollRangeToVisible(NSRange(location: storage.length, length: 0))
     }
 
     /// Gives the feed more room in landscape on iPhone.

@@ -15,6 +15,7 @@ nonisolated struct TrackingURLPinger: Sendable {
         self.session = session
     }
 
+    @concurrent
     func ping(_ url: URL) async throws {
         var request = URLRequest(url: url, timeoutInterval: 15)
         request.httpMethod = "GET"

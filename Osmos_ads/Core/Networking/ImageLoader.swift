@@ -20,6 +20,8 @@ nonisolated final class ImageLoader: @unchecked Sendable {
         cache.countLimit = 50
     }
 
+    /// `@concurrent` keeps download + decode off the main actor (callers are main-actor views).
+    @concurrent
     func image(for url: URL) async throws -> UIImage {
         if let cached = cache.object(forKey: url as NSURL) {
             return cached

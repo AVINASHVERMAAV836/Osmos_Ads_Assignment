@@ -13,7 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Initialise the Osmos SDK once per app session. Failure is non-fatal: the ad screen
+        // retries initialisation on "Load Ad" and shows "Ad not available" if it still fails.
+        OsmosSDKManager.shared.initializeIfNeeded()
         return true
     }
 

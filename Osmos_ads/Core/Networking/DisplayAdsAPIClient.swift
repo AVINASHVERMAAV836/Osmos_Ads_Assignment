@@ -19,6 +19,7 @@ nonisolated struct DisplayAdsAPIClient: Sendable {
     }
 
     /// Returns the decoded JSON object (`{"ads": {"<adUnit>": [...]}}`).
+    @concurrent
     func fetchDisplayAds(adUnit: String, count: Int) async throws -> Any {
         var components = URLComponents()
         components.scheme = "https"

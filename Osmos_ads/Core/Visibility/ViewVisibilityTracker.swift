@@ -118,14 +118,13 @@ final class ViewVisibilityTracker: NSObject {
     // MARK: - Triggers
 
     private func observe(_ scrollView: UIScrollView) {
+        // A scroll view's bounds origin *is* its content offset, so observing `bounds` alone covers both
+        // scrolling and resizing (rotation) with a single check per frame.
         // KVO fires on the main thread for UIKit property changes.
-        let offset = scrollView.observe(\.contentOffset, options: [.new]) { [weak self] _, _ in
-            MainActor.assumeIsolated { self?.evaluate() }
-        }
         let bounds = scrollView.observe(\.bounds, options: [.new]) { [weak self] _, _ in
             MainActor.assumeIsolated { self?.evaluate() }
         }
-        observations = [offset, bounds]
+        observations = [bounds]
     }
 
     @objc private func sceneDidActivate() {

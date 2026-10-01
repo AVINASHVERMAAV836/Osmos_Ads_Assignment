@@ -27,18 +27,18 @@ final class OsmosSDKManager {
     func initializeIfNeeded() -> Bool {
         if isInitialized { return true }
 
-        if !didBuildGlobalInstance {
-            didBuildGlobalInstance = true
-            OSMOS.Builder()
-                .clientId(OsmosConfig.clientId)
-                .productAdsHost(OsmosConfig.productAdsHost)
-                .displayAdsHost(OsmosConfig.displayAdsHost)
-                .debug(Self.isDebugBuild)
-                .buildGlobalInstance()
-        }
-
-        // Verify the instance is actually usable.
         do {
+            if !didBuildGlobalInstance {
+                try OSMOS.Builder()
+                    .clientId(OsmosConfig.clientId)
+                    .productAdsHost(OsmosConfig.productAdsHost)
+                    .displayAdsHost(OsmosConfig.displayAdsHost)
+                    .debug(Self.isSDKDebugLoggingEnabled)
+                    .buildGlobalInstance()
+                // Only mark as built on success, so a failed build can be retried from "Load Ad".
+                didBuildGlobalInstance = true
+            }
+            // Verify the instance is actually usable.
             _ = try OSMOS.shared()
             isInitialized = true
             analytics.track(.sdkInitialized)
@@ -49,9 +49,12 @@ final class OsmosSDKManager {
         return isInitialized
     }
 
-    private static var isDebugBuild: Bool {
+    /// The SDK's debug mode prints every request step several times to stdout, which noticeably slows
+    /// the app (and scrolling) while attached to Xcode. Opt in with the `OSMOS_SDK_DEBUG=1` environment
+    /// variable (Scheme ▸ Run ▸ Arguments) in Debug builds.
+    private static var isSDKDebugLoggingEnabled: Bool {
         #if DEBUG
-        return true
+        return ProcessInfo.processInfo.environment["OSMOS_SDK_DEBUG"] == "1"
         #else
         return false
         #endif

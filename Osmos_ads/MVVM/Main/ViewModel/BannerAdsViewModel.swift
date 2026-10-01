@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class BannerAdsViewModel {
 
     enum State: Equatable {
@@ -37,13 +38,13 @@ final class BannerAdsViewModel {
     private var firedImpressions = Set<String>()
 
     init(
-        repository: AdRepository = AdRepository(),
-        sdkManager: OsmosSDKManager = .shared,
-        analytics: AdAnalytics = .shared
+        repository: AdRepository? = nil,
+        sdkManager: OsmosSDKManager? = nil,
+        analytics: AdAnalytics? = nil
     ) {
-        self.repository = repository
-        self.sdkManager = sdkManager
-        self.analytics = analytics
+        self.repository = repository ?? AdRepository()
+        self.sdkManager = sdkManager ?? .shared
+        self.analytics = analytics ?? .shared
     }
 
     isolated deinit {
@@ -71,10 +72,10 @@ final class BannerAdsViewModel {
 
         loadTask = Task { [weak self, repository] in
             do {
-                let ads = try await repository.loadBannerAds { [weak self] nextAttempt, error, delay in
+                let result = try await repository.loadBannerAds { [weak self] nextAttempt, error, delay in
                     self?.handleRetry(nextAttempt: nextAttempt, maxAttempts: maxAttempts, error: error, delay: delay)
                 }
-                self?.finishLoading(with: .success(ads))
+                self?.finishLoading(with: .success(result))
             } catch {
                 self?.finishLoading(with: .failure(AdError.from(error)))
             }
@@ -95,12 +96,12 @@ final class BannerAdsViewModel {
         state = .loading(attempt: nextAttempt, maxAttempts: maxAttempts)
     }
 
-    private func finishLoading(with result: Result<[BannerAd], AdError>) {
+    private func finishLoading(with result: Result<AdFetchResult, AdError>) {
         loadTask = nil
         switch result {
-        case .success(let ads):
-            analytics.track(.adLoaded(count: ads.count))
-            state = .loaded(ads)
+        case .success(let fetch):
+            analytics.track(.adLoaded(count: fetch.ads.count, channel: fetch.channel))
+            state = .loaded(fetch.ads)
         case .failure(.cancelled):
             state = .idle
         case .failure(let error):

@@ -31,12 +31,14 @@ nonisolated enum BannerAdParser {
         guard let root = dictionary(from: response) else {
             throw AdError.invalidResponse("Response is not a JSON object")
         }
-        guard let adsByUnit = root["ads"] as? [String: Any] else {
+        // The SDK wraps the API payload (e.g. `{"status": true, "data": {"ads": {...}}}`), so the ad unit's
+        // array is located wherever it is nested instead of assuming a fixed path.
+        guard let rawAds = findAdArray(in: root, adUnit: adUnit, depth: 0) else {
             // An explicit `"status": false` or an empty object means the server had nothing to serve.
             if root.isEmpty || (root["status"] as? Bool) == false { throw AdError.noFill }
-            throw AdError.invalidResponse("Missing \"ads\" object")
+            throw AdError.invalidResponse("No \"\(adUnit)\" list found. Top-level keys: \(describeKeys(of: root))")
         }
-        guard let rawAds = adsByUnit[adUnit] as? [[String: Any]], !rawAds.isEmpty else {
+        guard !rawAds.isEmpty else {
             throw AdError.noFill
         }
 
@@ -78,6 +80,39 @@ nonisolated enum BannerAdParser {
     }
 
     // MARK: - Helpers
+
+    /// Depth-first search for `ads.<adUnit>` (preferred) or `<adUnit>` holding an array of creatives.
+    /// Nested values may be dictionaries, arrays, or JSON encoded as `String` / `Data`.
+    private static func findAdArray(in value: Any, adUnit: String, depth: Int) -> [[String: Any]]? {
+        guard depth < 6 else { return nil }
+
+        if let object = dictionary(from: value) {
+            if let ads = dictionary(from: object["ads"]), let list = ads[adUnit] as? [Any] {
+                return list.compactMap { $0 as? [String: Any] }
+            }
+            if let list = object[adUnit] as? [Any] {
+                return list.compactMap { $0 as? [String: Any] }
+            }
+            for child in object.values {
+                if let found = findAdArray(in: child, adUnit: adUnit, depth: depth + 1) { return found }
+            }
+        } else if let array = value as? [Any] {
+            for child in array {
+                if let found = findAdArray(in: child, adUnit: adUnit, depth: depth + 1) { return found }
+            }
+        }
+        return nil
+    }
+
+    /// e.g. `status, data{ads, ...}`, used to diagnose unexpected response shapes.
+    private static func describeKeys(of dictionary: [String: Any]) -> String {
+        dictionary.keys.sorted().map { key in
+            if let nested = self.dictionary(from: dictionary[key]) {
+                return "\(key){\(nested.keys.sorted().joined(separator: ", "))}"
+            }
+            return key
+        }.joined(separator: ", ")
+    }
 
     /// Accepts a dictionary, raw JSON `Data`, or a JSON `String`.
     private static func dictionary(from response: Any?) -> [String: Any]? {
