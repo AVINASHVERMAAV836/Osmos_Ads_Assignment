@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Banner Ads View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <!-- Header: title, Load Ad button, status -->
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HSt-0a-001" userLabel="Header Stack">
+                                <rect key="frame" x="16" y="71" width="361" height="104"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Osmos Banner Ads" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TtL-0a-001" userLabel="Title Label">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="29"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" staticText="YES" header="YES"/>
+                                        </accessibility>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdB-0a-001" userLabel="Load Ad Button">
+                                        <rect key="frame" x="0.0" y="39" width="361" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="LdB-hC-001"/>
+                                        </constraints>
+                                        <state key="normal" title="Load Ad"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Load Ad" cornerStyle="large"/>
+                                        <connections>
+                                            <action selector="loadAdTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LdB-aC-001"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap “Load Ad” to fetch banner ads." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="StL-0a-001" userLabel="Status Label">
+                                        <rect key="frame" x="0.0" y="93" width="361" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <!-- Scrollable feed; the stack view is the banner render area -->
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="Scr-0a-001" userLabel="Feed Scroll View">
+                                <rect key="frame" x="0.0" y="187" width="393" height="455"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="CSt-0a-001" userLabel="Ad Container Stack">
+                                        <rect key="frame" x="16" y="8" width="361" height="120"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Banner ads will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhL-0a-001" userLabel="Placeholder Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="361" height="120"/>
+                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="PhL-hC-001"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="12"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="CSt-0a-001" firstAttribute="top" secondItem="CLG-0a-001" secondAttribute="top" constant="8" id="Scr-c1-001"/>
+                                    <constraint firstItem="CSt-0a-001" firstAttribute="leading" secondItem="CLG-0a-001" secondAttribute="leading" constant="16" id="Scr-c2-001"/>
+                                    <constraint firstItem="CLG-0a-001" firstAttribute="trailing" secondItem="CSt-0a-001" secondAttribute="trailing" constant="16" id="Scr-c3-001"/>
+                                    <constraint firstItem="CLG-0a-001" firstAttribute="bottom" secondItem="CSt-0a-001" secondAttribute="bottom" constant="16" id="Scr-c4-001"/>
+                                    <constraint firstItem="CSt-0a-001" firstAttribute="width" secondItem="FLG-0a-001" secondAttribute="width" constant="-32" id="Scr-c5-001"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="CLG-0a-001"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="FLG-0a-001"/>
+                            </scrollView>
+                            <!-- Event log -->
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgT-0a-001" userLabel="Event Log Title">
+                                <rect key="frame" x="16" y="650" width="361" height="18"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LgV-0a-001" userLabel="Event Log Text View">
+                                <rect key="frame" x="16" y="672" width="361" height="150"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="LgV-hC-001"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HSt-0a-001" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="Rt-c01-001"/>
+                            <constraint firstItem="HSt-0a-001" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Rt-c02-001"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HSt-0a-001" secondAttribute="trailing" constant="16" id="Rt-c03-001"/>
+                            <constraint firstItem="Scr-0a-001" firstAttribute="top" secondItem="HSt-0a-001" secondAttribute="bottom" constant="12" id="Rt-c04-001"/>
+                            <constraint firstItem="Scr-0a-001" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Rt-c05-001"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Scr-0a-001" secondAttribute="trailing" id="Rt-c06-001"/>
+                            <constraint firstItem="LgT-0a-001" firstAttribute="top" secondItem="Scr-0a-001" secondAttribute="bottom" constant="8" id="Rt-c07-001"/>
+                            <constraint firstItem="LgT-0a-001" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Rt-c08-001"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LgT-0a-001" secondAttribute="trailing" constant="16" id="Rt-c09-001"/>
+                            <constraint firstItem="LgV-0a-001" firstAttribute="top" secondItem="LgT-0a-001" secondAttribute="bottom" constant="4" id="Rt-c10-001"/>
+                            <constraint firstItem="LgV-0a-001" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Rt-c11-001"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LgV-0a-001" secondAttribute="trailing" constant="16" id="Rt-c12-001"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LgV-0a-001" secondAttribute="bottom" constant="8" id="Rt-c13-001"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="adContainerStackView" destination="CSt-0a-001" id="Out-01-001"/>
+                        <outlet property="eventLogHeightConstraint" destination="LgV-hC-001" id="Out-02-001"/>
+                        <outlet property="eventLogTextView" destination="LgV-0a-001" id="Out-03-001"/>
+                        <outlet property="loadAdButton" destination="LdB-0a-001" id="Out-04-001"/>
+                        <outlet property="placeholderLabel" destination="PhL-0a-001" id="Out-05-001"/>
+                        <outlet property="scrollView" destination="Scr-0a-001" id="Out-06-001"/>
+                        <outlet property="statusLabel" destination="StL-0a-001" id="Out-07-001"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="-2"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
